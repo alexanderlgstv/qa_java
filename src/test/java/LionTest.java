@@ -1,6 +1,5 @@
 import com.example.Feline;
 import com.example.Lion;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -18,24 +17,10 @@ public class LionTest {
     Feline feline;
 
     @Test()
-    public void getLionGenderException() throws Exception {
-        try {
-            Lion lion = new Lion(" ", feline);
-            lion.doesHaveMane();
-        } catch (Exception thrown) {
-            assertNotEquals(" ", thrown.getMessage());
-        }
-    }
-
-    @Test()
-    public void incorrectGenderReturnExceptionText() throws Exception {
-        String sex = "example";
-        try {
-            Lion lion = new Lion(sex, feline);
-            Assert.fail("Exception thrown");
-        } catch (Exception thrown) {
-            assertNotEquals(sex, thrown.getMessage());
-        }
+    public void getLionGenderExceptionTest() {
+        Exception actualException = assertThrows(Exception.class, () ->
+                new Lion("example", feline));
+        assertEquals("Используйте допустимые значения пола животного - самец или самка", actualException.getMessage());
     }
 
     @Test
